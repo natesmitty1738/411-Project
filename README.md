@@ -1,4 +1,4 @@
-# Movie Recommendation System: A Hybrid Approach with PageRank at its Core
+# Movie Recommendation System
 
 ```bash
 # Clone
