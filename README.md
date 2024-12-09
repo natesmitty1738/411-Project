@@ -2,8 +2,8 @@
 
 ```bash
 # Clone
-git clone https://github.com/yourusername/Advanced-Recommender.git
-cd Advanced-Recommender
+git clone git@github.com:natesmitty1738/411-Project.git
+cd 411-Project
 
 # Build & test
 make && ./run_tests
@@ -375,9 +375,8 @@ vector<pair<int, float>> getRecommendations(userId, n) {
 
 #### Data Flow Example
 
-Let's follow how data flows through the Content-Based Filtering component using our test data:
-
 1. **Initial State**:
+
 ```cpp
 // From test_ContentBasedFiltering_SimilarGenresGetHigherScores
 BipartiteGraph bg;
@@ -389,7 +388,8 @@ Content content(bg);
 content.preComputeSimilarities();
 ```
 
-2. **Similarity Calculation**:
+1. **Similarity Calculation**:
+
 ```cpp
 // Calculate similarity between movies 1 and 2
 float similarity = content.calculateSimilarity(1, 2);
@@ -408,7 +408,8 @@ finalSimilarity = 0.6 * 1.0 +
                 ≈ 0.987  // High similarity
 ```
 
-3. **Recommendation Generation**:
+1. **Recommendation Generation**:
+
 ```cpp
 // Add a user who likes action movies
 bg.addUser(1, {{1, 5.0}, {2, 4.8}});
@@ -596,8 +597,6 @@ vector<pair<int, float>> getInfluentialRecommendations(
 
 #### Data Flow Example
 
-Let's follow how data flows through the Collaborative Filtering component using our test data:
-
 1. **Initial State**:
 ```cpp
 // From test_CollaborativeFiltering_SimilarUsersGetSimilarRecommendations
@@ -772,7 +771,7 @@ This weighting system ensures:
 
 ## PageRank Implementation Details
 
-The PageRank algorithm in this system is specifically adapted for movie recommendation networks. Unlike traditional web-based PageRank where links are binary (exist or don't exist), our implementation uses weighted edges based on shared movie ratings between users.
+Uses weighted edges based on shared movie ratings between users.
 
 ### Graph Construction
 
@@ -783,29 +782,13 @@ The PageRank algorithm in this system is specifically adapted for movie recommen
    weight(user1 -> user2) = number_of_shared_movies / total_movies_user2
    ```
 
-### Mathematical Foundation
-
-The PageRank score for each user is calculated using the formula:
-
-```
-PR(u) = (1-d)/N + d * Σ(PR(v) * w(v,u))
-
-where:
-- d = damping factor (0.85 in our implementation)
-- N = total number of users
-- PR(v) = PageRank score of user v
-- w(v,u) = edge weight from user v to user u
-```
-
 ### Understanding User Types Through PageRank
 
-The PageRank formula for our recommendation system is:
 ```
 PR(u) = (1-d)/N + d × Σ(PR(v) × shared_movies / total_movies_v)
 
 where:
 d = damping factor (0.85) // 15% chance that a user randomly selects something out of the ordinary
-// this is the most interesting part of PageRank
 // the creators (Larry Page and Sergey Brin) decided:
 // this was a good standard deviation to counteract random "wrong choice" clicks
 N = total number of users
@@ -886,7 +869,7 @@ final_collaborative = collaborative_weight / total
 final_content = content_weight / total
 ```
 
-This creates our weight distribution:
+This creates the weight distribution:
 
 | User Type | PageRank | Raw Weights (C/T) | Normalized (C/T) | Explanation |
 |-----------|----------|-------------------|------------------|-------------|
@@ -1126,9 +1109,10 @@ function calculateMovieSimilarity(movie1, movie2):
 
 ### 4. Utils: Core Similarity Metrics
 
-The Utils class provides essential similarity metrics used throughout the recommendation system. These metrics form the mathematical foundation for comparing users, movies, and their attributes.
+The Utils class provides similarity metrics used throughout the recommendation system.
 
 #### Class Structure
+
 ```pseudocode
 class Utils
     // Core functions
@@ -1230,9 +1214,10 @@ This utility class ensures:
 
 ### 5. Hybrid: Final Recommendation Generation
 
-The Hybrid class represents the culmination of our recommendation system, combining content-based, collaborative, and PageRank-weighted recommendations into a final, personalized list of movie suggestions.
+The Hybrid class represents the filal product of the recommendation system, combining content-based, collaborative, and PageRank-weighted recommendations into a final, personalized list of movie suggestions.
 
 #### Class Structure
+
 ```pseudocode
 class Hybrid
     // Core components
@@ -1254,6 +1239,7 @@ class Hybrid
 #### Implementation Details
 
 1. **Score Combination**:
+
 ```cpp
 float calculateHybridScore(float contentScore, 
                          float collabScore,
@@ -1273,7 +1259,8 @@ float calculateHybridScore(float contentScore,
 }
 ```
 
-2. **Recommendation Generation**:
+1. **Recommendation Generation**:
+
 ```cpp
 vector<pair<int, float>> getRecommendations(userId, n) {
     // Get user's PageRank score
@@ -1335,6 +1322,7 @@ vector<pair<int, float>> getRecommendations(userId, n) {
 Let's follow a complete recommendation generation:
 
 1. **Initial Setup**:
+
 ```cpp
 // User with mixed preferences
 userId = 1
@@ -1354,7 +1342,8 @@ collabRecs = {
 }
 ```
 
-2. **Score Combination**:
+1. **Score Combination**:
+
 ```cpp
 // Calculate weights
 collabWeight = 0.6 * (1 + 0.05) = 0.63
@@ -1372,7 +1361,8 @@ movie104 = 0.612 * 0.80 = 0.490
 movie105 = 0.612 * 0.70 = 0.428
 ```
 
-3. **Final Ranking**:
+1. **Final Ranking**:
+
 ```cpp
 recommendations = [
     {101, 0.881},  // Strong agreement between systems
@@ -1384,6 +1374,7 @@ recommendations = [
 ```
 
 Hybrid:
+
 - Balanced consideration of all recommendation sources
 - Proper weighting based on user engagement level
 - Smooth handling of missing scores from either system
@@ -1395,6 +1386,7 @@ Hybrid:
 ### PageRank Component Analysis
 
 #### Notation and Variables
+
 - `N`: Number of users in the system
 - `E`: Number of edges in the user similarity graph
 - `M`: Average number of movies rated per user
@@ -1403,7 +1395,9 @@ Hybrid:
 - `ε`: Convergence threshold (constant, 0.0001)
 
 #### Data Structure Creation and Initialization
+
 1. **User Graph Construction**:
+
    ```cpp
    // For each user's movie ratings
    for each user in N:
@@ -1411,14 +1405,17 @@ Hybrid:
            for each other_user rating same movie:  // O(U_m)
                add_edge(user, other_user)
    ```
+
    - Time Complexity: O(N × M × U_m), where U_m is users per movie
    - Space Complexity: O(E) for adjacency lists
    - Optimization: Edge weights cached after first calculation
 
 2. **Edge Weight Computation**:
+
    ```cpp
    weight(u1, u2) = shared_movies / total_movies_u2
    ```
+
    - Time per edge: O(M) using set intersection
    - Total preprocessing: O(E × M)
    - Space: O(E) in weight cache
@@ -1426,14 +1423,17 @@ Hybrid:
 #### Core Algorithm Steps
 
 1. **Initialization**:
+
    ```cpp
    ranks = new Array[N].fill(1/N)  // O(N)
    newRanks = new Array[N]         // O(N)
    ```
+
    - Time: O(N)
    - Space: O(N) for rank vectors
 
 2. **Iteration Process**:
+
    ```cpp
    for iteration in 1..k:           // O(k)
        for each user in N:          // O(N)
@@ -1442,11 +1442,13 @@ Hybrid:
                sum += ranks[neighbor] * weights[user,neighbor]
            newRanks[user] = (1-d)/N + d*sum
    ```
+
    - Time per iteration: O(E) as Σdeg(v) = 2|E|
    - Total iteration time: O(k × E)
    - Space: O(N) for rank vectors
 
 3. **Convergence Check**:
+
    ```cpp
    diff = max(|newRanks[i] - ranks[i]|) for i in 1..N
    if diff < ε: break
@@ -1493,6 +1495,7 @@ Hybrid:
    - Iteration time from O(N²) to O(E)
 
 3. **Early Convergence**:
+
    ```cpp
    if max_diff < ε:
        break  // Typically saves 5-10 iterations
@@ -1506,6 +1509,7 @@ Hybrid:
 #### Example Analysis
 
 For a typical dataset with:
+
 - N = 10,000 users
 - M = 50 movies per user
 - E = 100,000 edges (sparse graph)
@@ -1818,30 +1822,6 @@ This complete analysis shows that:
 ## Performance Visualizations
 
 ### 1. Time Complexity Growth
-
-```
-Runtime (log scale)
-^
-|                                                    ×
-|                                               ×
-|                                          ×
-|                                     ×
-|                                ×
-|                           ×
-|                      ×
-|                 ×
-|            ×
-|       ×
-|  ×
-+-------------------------------------------------->
-   N (number of users/movies)
-
-Legend:
-× Preprocessing: O(max(M², N²))
-- Per-request: O(M log M + N log N)
-```
-
-### 2. Component Runtime Distribution
 
 ```
 Percentage of Total Runtime
