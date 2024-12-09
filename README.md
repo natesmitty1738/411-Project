@@ -1,4 +1,4 @@
-# Movie Recommendation System
+# Hybrid + PageRank Movie Recommendation System
 
 ```bash
 # Clone
