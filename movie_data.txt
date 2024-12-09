@@ -1,0 +1,200 @@
+1 Comedy Horror Sci-Fi 62 5.5 2
+2 Romance 63 9.1 3
+3 Horror Romance 117 1.8 1
+4 Adventure Comedy 97 3.2 3
+5 Adventure Horror Thriller 86 3.9 2
+6 Comedy Drama Horror 129 2.7 3
+7 Action 148 1.8 1
+8 Adventure Drama Horror 154 4.4 3
+9 Drama Horror Thriller 83 9.3 1
+10 Horror Romance 126 4.3 0
+11 Sci-Fi 66 6.0 2
+12 Documentary 67 9.0 1
+13 Drama 129 6.9 1
+14 Comedy 66 7.6 2
+15 Romance 88 9.9 0
+16 Documentary 99 1.8 1
+17 Action Adventure Documentary 146 9.8 2
+18 Action Sci-Fi 138 3.3 2
+19 Documentary Thriller 171 7.8 1
+20 Action Adventure Thriller 155 7.9 1
+21 Action 144 6.0 3
+22 Horror Sci-Fi 104 2.0 1
+23 Horror Romance 90 1.0 3
+24 Documentary 131 8.8 2
+25 Horror 119 1.8 3
+26 Sci-Fi 142 7.6 2
+27 Documentary 118 9.3 0
+28 Drama Sci-Fi Thriller 109 7.9 2
+29 Drama 104 2.5 3
+30 Adventure Drama Sci-Fi 64 2.5 0
+31 Action Drama Horror 116 1.8 1
+32 Documentary Horror Romance 176 4.7 2
+33 Adventure Comedy 74 2.8 3
+34 Thriller 145 1.4 0
+35 Documentary Sci-Fi 168 2.3 1
+36 Documentary Horror Thriller 125 4.2 1
+37 Comedy Drama 68 5.4 0
+38 Comedy 159 6.0 2
+39 Adventure Sci-Fi 173 5.4 3
+40 Action Romance Thriller 76 1.2 1
+41 Documentary Horror Romance 89 4.5 0
+42 Sci-Fi Thriller 138 3.9 2
+43 Adventure 122 3.3 1
+44 Adventure 90 6.5 1
+45 Documentary Drama Thriller 109 5.0 0
+46 Comedy Sci-Fi Thriller 179 1.6 3
+47 Adventure Documentary Horror 149 6.8 1
+48 Comedy Documentary 106 6.5 0
+49 Documentary Romance Thriller 122 8.1 2
+50 Sci-Fi Thriller 180 9.0 1
+51 Action Documentary Thriller 126 5.5 1
+52 Comedy Documentary Romance 126 1.3 1
+53 Comedy 170 1.5 2
+54 Documentary Drama Romance 98 6.1 1
+55 Thriller 76 6.9 3
+56 Sci-Fi 173 7.4 2
+57 Action Adventure 121 3.3 3
+58 Documentary Drama Romance 159 2.9 0
+59 Documentary 177 2.9 2
+60 Documentary Horror Romance 91 7.2 1
+61 Sci-Fi 136 1.2 0
+62 Romance 137 6.5 0
+63 Comedy Drama Horror 60 3.3 0
+64 Comedy Documentary 89 1.6 1
+65 Romance 113 5.2 0
+66 Thriller 115 7.9 3
+67 Drama 95 6.3 3
+68 Action Comedy Romance 70 6.8 0
+69 Thriller 93 2.0 3
+70 Horror 127 6.6 1
+71 Action 86 7.7 2
+72 Horror 127 3.1 3
+73 Documentary 126 5.1 1
+74 Adventure Thriller 173 6.1 2
+75 Romance 97 2.1 2
+76 Drama Sci-Fi 159 1.4 3
+77 Thriller 151 4.0 2
+78 Documentary Horror Romance 126 8.1 1
+79 Sci-Fi 97 9.0 0
+80 Drama Romance 131 6.7 0
+81 Thriller 149 3.5 0
+82 Action 95 1.2 2
+83 Drama 78 9.1 0
+84 Horror Sci-Fi Thriller 135 7.4 0
+85 Thriller 136 8.0 2
+86 Comedy Horror Romance 105 3.8 3
+87 Action Comedy 141 5.3 0
+88 Documentary Romance 172 4.5 3
+89 Romance Thriller 159 6.1 1
+90 Comedy Horror Romance 68 6.1 1
+91 Sci-Fi 85 4.4 0
+92 Comedy Horror Sci-Fi 130 8.4 1
+93 Comedy Sci-Fi Thriller 150 9.1 3
+94 Adventure Documentary Drama 142 6.1 0
+95 Drama 84 1.6 0
+96 Action Documentary 119 1.1 1
+97 Comedy Drama Sci-Fi 150 8.7 0
+98 Horror 126 5.0 1
+99 Comedy Horror Romance 120 2.9 3
+100 Action Drama Sci-Fi 78 6.6 3
+101 Adventure Documentary Horror 63 7.6 2
+102 Comedy 164 7.3 0
+103 Adventure Romance 90 5.8 2
+104 Comedy Horror Thriller 137 5.1 0
+105 Adventure Drama Thriller 147 9.8 1
+106 Drama 95 8.3 1
+107 Action Drama Horror 75 9.4 1
+108 Comedy 91 7.0 1
+109 Action Drama Thriller 68 5.5 2
+110 Horror Romance 106 3.0 3
+111 Sci-Fi 99 1.5 2
+112 Adventure 111 1.6 0
+113 Action Adventure Sci-Fi 70 1.9 1
+114 Action 90 3.6 0
+115 Romance Thriller 77 7.4 1
+116 Thriller 88 7.0 3
+117 Adventure Romance 93 6.7 2
+118 Sci-Fi 96 6.1 3
+119 Adventure Documentary Drama 180 2.5 2
+120 Documentary Drama 131 5.3 2
+121 Documentary Romance 69 3.4 3
+122 Action Documentary Sci-Fi 87 7.9 2
+123 Action Comedy Thriller 135 6.5 2
+124 Action Adventure Drama 159 2.6 0
+125 Thriller 74 4.7 3
+126 Romance 133 9.1 2
+127 Action Romance 135 7.9 2
+128 Drama 144 7.2 1
+129 Action Documentary Romance 98 4.5 0
+130 Romance Sci-Fi 168 1.7 0
+131 Drama 140 4.1 2
+132 Documentary 101 5.1 1
+133 Documentary Horror 95 2.1 0
+134 Adventure Horror 94 6.8 0
+135 Sci-Fi 69 8.0 2
+136 Sci-Fi Thriller 145 9.6 1
+137 Adventure Horror Thriller 94 7.7 1
+138 Documentary 179 6.2 2
+139 Action 142 4.0 1
+140 Drama Sci-Fi Thriller 93 9.8 1
+141 Comedy 72 9.8 2
+142 Adventure Romance 168 5.3 3
+143 Action Romance 78 1.0 2
+144 Adventure Horror Romance 127 5.3 0
+145 Comedy Horror Thriller 87 6.7 1
+146 Adventure Sci-Fi 114 6.5 3
+147 Drama Horror 107 4.0 3
+148 Comedy Romance 105 5.0 1
+149 Action Drama 110 1.2 3
+150 Action Drama Thriller 133 6.2 3
+151 Comedy Horror Sci-Fi 82 7.6 3
+152 Action Adventure 111 6.9 3
+153 Action Horror 171 1.8 2
+154 Comedy Drama Sci-Fi 150 5.6 2
+155 Comedy Documentary Romance 93 2.6 0
+156 Action Thriller 113 3.2 0
+157 Documentary Romance 86 2.0 2
+158 Drama 98 3.8 3
+159 Action Drama Thriller 98 4.0 2
+160 Sci-Fi 60 2.9 0
+161 Adventure 94 2.7 1
+162 Action Adventure Documentary 140 8.6 2
+163 Comedy Sci-Fi 168 4.8 2
+164 Drama Thriller 180 8.4 3
+165 Action Drama 170 2.1 1
+166 Adventure Comedy Sci-Fi 178 6.9 3
+167 Documentary Drama 126 2.6 0
+168 Action Comedy Thriller 167 5.2 3
+169 Drama Romance Thriller 164 7.3 2
+170 Adventure 157 1.2 2
+171 Comedy Romance Thriller 85 5.3 0
+172 Comedy Romance Thriller 79 4.5 3
+173 Romance Thriller 114 5.1 1
+174 Action Adventure Horror 64 3.5 2
+175 Comedy 123 2.6 1
+176 Comedy 138 1.2 1
+177 Adventure Documentary Horror 173 5.0 1
+178 Action Adventure Documentary 173 1.1 2
+179 Adventure Documentary Romance 176 6.3 3
+180 Documentary Drama Sci-Fi 147 4.4 1
+181 Romance 141 4.9 2
+182 Action Horror 126 7.6 2
+183 Adventure Comedy 166 9.8 2
+184 Comedy Romance Thriller 97 3.7 0
+185 Drama 126 5.7 2
+186 Drama Thriller 174 4.9 1
+187 Adventure 158 9.8 2
+188 Documentary 104 4.8 1
+189 Thriller 81 3.7 0
+190 Thriller 61 2.5 0
+191 Horror Romance Thriller 104 1.7 0
+192 Action Drama Horror 120 3.0 1
+193 Action Thriller 168 6.6 3
+194 Action Comedy Romance 122 5.0 1
+195 Adventure 66 4.4 3
+196 Drama 99 9.7 1
+197 Thriller 77 2.2 0
+198 Adventure Comedy Drama 147 8.3 3
+199 Horror Sci-Fi Thriller 130 5.6 0
+200 Comedy Documentary Drama 93 3.4 3
