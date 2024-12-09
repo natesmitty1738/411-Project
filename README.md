@@ -9,6 +9,25 @@ cd 411-Project
 make && ./run_tests
 ```
 
+## Table of Contents
+
+1. [Test Cases](#test-cases)
+2. [Introduction](#introduction)
+3. [Implementation](#implementation)
+   - [BipartiteGraph: The Foundation](#bipartitegraph-the-foundation)
+   - [Content-Based Filtering](#content-based-filtering-personalized-genre-based-recommendations)
+   - [Collaborative Filtering](#collaborative-filtering-user-based-with-pagerank-integration)
+   - [Utils: Core Similarity Metrics](#utils-core-similarity-metrics)
+   - [Hybrid: Final Recommendation Generation](#hybrid-final-recommendation-generation)
+4. [Run Time Analysis](#run-time-analysis)
+   - [PageRank Component Analysis](#pagerank-component-analysis)
+   - [Content-Based Component Analysis](#content-based-component-analysis)
+   - [Collaborative Component Analysis](#collaborative-component-analysis)
+   - [Hybrid Component Analysis](#hybrid-component-analysis)
+5. [Performance Visualizations](#performance-visualizations)
+6. [Feedback](#feedback)
+7. [Citations](#citations)
+
 ## Test Cases
 
 1. **Content-Based Tests**
