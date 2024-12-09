@@ -118,12 +118,12 @@ My design works as such:
      - PR(u) = (1-0.85)/N + 0.85 × Σ(PR(v) × shared_movies / total_movies_v)
    - Weights adjusted by user PageRank:
 
-     | User Type | PageRank | Raw Weights (C/T) | Normalized (C/T) | Example Score |
-     |-----------|----------|-----------------|-----------------|---------------|
-     | Power     | 0.15     | 0.69 / 0.4 = 1.09 | 63.3% / 36.7% | 0.633×0.85 + 0.367×0.70 = 0.793 |
-     | Average   | 0.05     | 0.63 / 0.4 = 1.03 | 61.2% / 38.8% | 0.612×0.85 + 0.388×0.70 = 0.792 |
-     | Casual    | 0.02     | 0.61 / 0.4 = 1.01 | 60.5% / 39.5% | 0.605×0.85 + 0.395×0.70 = 0.790 |
-     | New       | 0.001    | 0.60 / 0.4 = 1.00 | 60.0% / 40.0% | 0.600×0.85 + 0.400×0.70 = 0.790 |
+     | User Type | PageRank | Raw Weights (C/T) | Normalized (C/T) | Example Score                   |
+     | --------- | -------- | ----------------- | ---------------- | ------------------------------- |
+     | Power     | 0.15     | 0.69 / 0.4 = 1.09 | 63.3% / 36.7%    | 0.633×0.85 + 0.367×0.70 = 0.793 |
+     | Average   | 0.05     | 0.63 / 0.4 = 1.03 | 61.2% / 38.8%    | 0.612×0.85 + 0.388×0.70 = 0.792 |
+     | Casual    | 0.02     | 0.61 / 0.4 = 1.01 | 60.5% / 39.5%    | 0.605×0.85 + 0.395×0.70 = 0.790 |
+     | New       | 0.001    | 0.60 / 0.4 = 1.00 | 60.0% / 40.0%    | 0.600×0.85 + 0.400×0.70 = 0.790 |
 
      *Where C = Collaborative weight, T = Content weight*  
      *Example uses collaborative score = 0.85, content score = 0.70*
@@ -142,6 +142,7 @@ My design works as such:
 The BipartiteGraph class serves as the foundational data structure for the entire recommendation system. It models the relationships between users and movies as a bipartite graph, where connections only exist between users and movies (never user-to-user or movie-to-movie).
 
 #### Class Structure
+
 ```pseudocode
 class BipartiteGraph
     // Core data structures
@@ -167,6 +168,7 @@ class BipartiteGraph
 #### Implementation Details
 
 1. **Data Storage**:
+
 ```cpp
 // User rating storage
 user_to_items[1] = {
@@ -184,7 +186,8 @@ items[101] = {
 }
 ```
 
-2. **Rating Addition**:
+1. **Rating Addition**:
+
 ```cpp
 void addUser(userId, ratings) {
     for each (movieId, rating) in ratings {
@@ -197,7 +200,8 @@ void addUser(userId, ratings) {
 }
 ```
 
-3. **Movie Addition**:
+1. **Movie Addition**:
+
 ```cpp
 void addItem(movieId, genres, length, rating, year) {
     items[movieId] = Item{
@@ -214,6 +218,7 @@ void addItem(movieId, genres, length, rating, year) {
 Let's follow how data flows through the BipartiteGraph when loading a movie and user ratings:
 
 1. **Initial Movie Load**:
+
 ```cpp
 // From run_tests.cpp test data
 bg.addItem(1, {"Action", "Adventure"}, 120, 8.0, 2020);
@@ -228,7 +233,8 @@ items = {
 }
 ```
 
-2. **User Rating Addition**:
+1. **User Rating Addition**:
+
 ```cpp
 // From test data: Adding an action fan
 bg.addUser(1, {{1, 5.0}, {2, 4.8}});
@@ -244,7 +250,8 @@ item_to_users = {
 }
 ```
 
-3. **Data Access Patterns**:
+1. **Data Access Patterns**:
+
 ```cpp
 // For content-based filtering:
 items[movieId].genres  // O(1) access to movie attributes
@@ -256,7 +263,8 @@ user_to_items[userId]  // O(1) access to user's ratings
 item_to_users[movieId] // O(1) access to movie's ratings
 ```
 
-This bidirectional graph structure enables:
+This graph structure enables:
+
 - Efficient movie similarity calculations (content-based)
 - Quick user rating pattern analysis (collaborative)
 - Fast shared movie identification (PageRank)
@@ -264,9 +272,10 @@ This bidirectional graph structure enables:
 
 ### 2. Content-Based Filtering: Personalized Genre-Based Recommendations
 
-The Content class implements a sophisticated content-based filtering approach that focuses on movie attributes, particularly genres, to generate personalized recommendations. The implementation is found in `content.h` and `content.cpp`.
+The Content class implements content-based filtering approach that focuses on movie attributes, particularly genres. The implementation is found in `content.h` and `content.cpp`.
 
 #### Class Structure
+
 ```pseudocode
 class Content
     // Core data structures
@@ -285,6 +294,7 @@ class Content
 #### Implementation Details
 
 1. **Movie Similarity Calculation**:
+
 ```cpp
 float calculateSimilarity(item1Id, item2Id) {
     if (item1Id == item2Id) return 1.0f;
@@ -310,7 +320,8 @@ float calculateSimilarity(item1Id, item2Id) {
 }
 ```
 
-2. **User Preference Learning**:
+1. **User Preference Learning**:
+
 ```cpp
 // From getRecommendations() implementation
 void analyzeUserPreferences(userId, genrePreferences) {
@@ -334,7 +345,8 @@ void analyzeUserPreferences(userId, genrePreferences) {
 }
 ```
 
-3. **Recommendation Generation**:
+1. **Recommendation Generation**:
+
 ```cpp
 vector<pair<int, float>> getRecommendations(userId, n) {
     // Get user's genre preferences
@@ -429,7 +441,7 @@ finalScore = 0.8 * 0.0 + 0.2 * 0.7 = 0.14  // Low score
 ```
 
 This example demonstrates how the content-based filtering:
-- Accurately identifies similar movies based on attributes
+- Uses math to identify similar movies based on attributes
 - Learns user preferences from rating patterns
 - Weights recommendations by both preferences and quality
 - Effectively differentiates between genres
@@ -439,6 +451,7 @@ This example demonstrates how the content-based filtering:
 The Collaborative class implements a sophisticated user-based collaborative filtering system that incorporates PageRank scores to weight user influences. The implementation is found in `collabrative.h` and `collabrative.cpp`.
 
 #### Class Structure
+
 ```pseudocode
 class Collaborative
     // Core data structures
@@ -462,6 +475,7 @@ class Collaborative
 #### Implementation Details
 
 1. **User Similarity Calculation**:
+
 ```cpp
 float calculateSimilarity(user1Id, user2Id) {
     if (user1Id == user2Id) return 1.0f;
@@ -496,7 +510,8 @@ float calculateSimilarity(user1Id, user2Id) {
 }
 ```
 
-2. **Recommendation Generation for Existing Users**:
+1. **Recommendation Generation for Existing Users**:
+
 ```cpp
 vector<pair<int, float>> getRecommendations(userId, n) {
     // Find similar users
@@ -547,7 +562,8 @@ vector<pair<int, float>> getRecommendations(userId, n) {
 }
 ```
 
-3. **New User Handling**:
+1. **New User Handling**:
+
 ```cpp
 vector<pair<int, float>> getInfluentialRecommendations(
     const unordered_set<int>& userMovies, size_t n) {
@@ -598,6 +614,7 @@ vector<pair<int, float>> getInfluentialRecommendations(
 #### Data Flow Example
 
 1. **Initial State**:
+
 ```cpp
 // From test_CollaborativeFiltering_SimilarUsersGetSimilarRecommendations
 BipartiteGraph bg;
@@ -616,7 +633,8 @@ Collaborative collab(bg, pageRank);
 collab.preComputeSimilarities();
 ```
 
-2. **Similarity Calculation**:
+1. **Similarity Calculation**:
+
 ```cpp
 // Calculate similarity between users 1 and 2
 float similarity = collab.calculateSimilarity(1, 2);
@@ -632,7 +650,8 @@ similarity = 47.06 / sqrt(48.04 * 46.1)
           ≈ 0.985  // Very high similarity
 ```
 
-3. **Recommendation Generation**:
+1. **Recommendation Generation**:
+
 ```cpp
 auto recs = collab.getRecommendations(1);
 
@@ -654,7 +673,7 @@ finalScore = 0.8 * 4.9 + 0.2 * 7.0
           = 5.32
 ```
 
-This example demonstrates how collaborative filtering:
+My collaborative filtering:
 - Accurately identifies similar users through rating patterns
 - Weights recommendations by both similarity and influence
 - Handles the cold-start problem with PageRank-based recommendations
@@ -665,14 +684,16 @@ This example demonstrates how collaborative filtering:
 The system dynamically adjusts recommendation weights based on user PageRank scores. Here's a detailed breakdown:
 
 #### Base Configuration
-```
+
+```cpp
 Initial Weights:
 - Collaborative: 60% (0.6)
 - Content-based: 40% (0.4)
 ```
 
 #### Weight Adjustment Formula
-```
+
+```cpp
 adjusted_collab = 0.6 * (1 + pagerank)
 adjusted_content = 0.4  // Remains constant
 final_collab = adjusted_collab / (adjusted_collab + adjusted_content)
@@ -682,7 +703,8 @@ final_content = adjusted_content / (adjusted_collab + adjusted_content)
 #### Example Scenarios
 
 1. **Power User** (PageRank = 0.15)
-```
+
+```cpp
 Calculation:
 - Collaborative: 0.6 * (1 + 0.15) = 0.69
 - Content: 0.4
@@ -693,8 +715,9 @@ Normalized Weights:
 - Content: 0.4/1.09 = 36.7%
 ```
 
-2. **Average User** (PageRank = 0.05)
-```
+1. **Average User** (PageRank = 0.05)
+
+```cpp
 Calculation:
 - Collaborative: 0.6 * (1 + 0.05) = 0.63
 - Content: 0.4
@@ -705,8 +728,9 @@ Normalized Weights:
 - Content: 0.4/1.03 = 38.8%
 ```
 
-3. **Casual User** (PageRank = 0.02)
-```
+1. **Casual User** (PageRank = 0.02)
+
+```cpp
 Calculation:
 - Collaborative: 0.6 * (1 + 0.02) = 0.612
 - Content: 0.4
@@ -717,8 +741,9 @@ Normalized Weights:
 - Content: 0.4/1.012 = 39.5%
 ```
 
-4. **New User** (PageRank = 0.001)
-```
+1. **New User** (PageRank = 0.001)
+
+```cpp
 Calculation:
 - Collaborative: 0.6 * (1 + 0.001) = 0.6006
 - Content: 0.4
@@ -729,17 +754,14 @@ Normalized Weights:
 - Content: 0.4/1.0006 = 40.0%
 ```
 
-#### Weight Distribution Visualization
-```
-PageRank  |  Collaborative  |  Content  |  Explanation
-----------|----------------|-----------|-------------
-0.150     |     63.3%      |   36.7%   |  Power user
-0.050     |     61.2%      |   38.8%   |  Average user
-0.020     |     60.5%      |   39.5%   |  Casual user
-0.001     |     60.0%      |   40.0%   |  New user
-```
+| PageRank | Collaborative | Content | Explanation  |
+| -------- | ------------- | ------- | ------------ |
+| 0.150    | 63.3%         | 36.7%   | Power user   |
+| 0.050    | 61.2%         | 38.8%   | Average user |
+| 0.020    | 60.5%         | 39.5%   | Casual user  |
+| 0.001    | 60.0%         | 40.0%   | New user     |
 
-#### Impact Analysis
+#### Analysis
 
 1. **Power Users** (PR > 0.1)
    - Highest collaborative weight (>63%)
@@ -778,13 +800,14 @@ Uses weighted edges based on shared movie ratings between users.
 1. **Nodes**: Each user in the system represents a node in the graph
 2. **Edges**: Edges are formed between users who have rated common movies
 3. **Edge Weights**: Calculated as:
-   ```
+
+   ```cpp
    weight(user1 -> user2) = number_of_shared_movies / total_movies_user2
    ```
 
 ### Understanding User Types Through PageRank
 
-```
+```cpp
 PR(u) = (1-d)/N + d × Σ(PR(v) × shared_movies / total_movies_v)
 
 where:
@@ -800,7 +823,8 @@ total_movies_v = total movies rated by user v
 PageRank on a system with 1000 users (N=1000):
 
 1. Power User (PR ≈ 0.15)
-```
+
+```cpp
 Profile:
 - Rates 100 movies
 - Shares ratings with 200 other users
@@ -814,7 +838,8 @@ PR(power) = 0.15/1000 + 0.85 × Σ(PR(v) × 40/100)
 ```
 
 #### 2. Average User (PR ≈ 0.05)
-```
+
+```cpp
 Profile:
 - Rates 30 movies
 - Shares ratings with 50 other users
@@ -828,7 +853,8 @@ PR(average) = 0.15/1000 + 0.85 × Σ(PR(v) × 10/30)
 ```
 
 #### 3. Casual User (PR ≈ 0.02)
-```
+
+```cpp
 Profile:
 - Rates 10 movies
 - Shares ratings with 20 other users
@@ -842,7 +868,8 @@ PR(casual) = 0.15/1000 + 0.85 × Σ(PR(v) × 3/10)
 ```
 
 #### 4. New User (PR ≈ 0.001)
-```
+
+```cpp
 Profile:
 - Rates 2 movies
 - Shares ratings with 3 other users
@@ -859,7 +886,7 @@ PR(new) = 0.15/1000 + 0.85 × Σ(PR(v) × 1/2)
 
 The PageRank scores directly influence the weight given to collaborative vs. content-based filtering:
 
-```
+```cpp
 collaborative_weight = 0.6 × (1 + pagerank)
 content_weight = 0.4 (constant)
 
@@ -871,12 +898,12 @@ final_content = content_weight / total
 
 This creates the weight distribution:
 
-| User Type | PageRank | Raw Weights (C/T) | Normalized (C/T) | Explanation |
-|-----------|----------|-------------------|------------------|-------------|
-| Power     | 0.15     | 0.69 / 0.4 = 1.09| 63.3% / 36.7%   | High influence, heavily weighted toward collaborative |
-| Average   | 0.05     | 0.63 / 0.4 = 1.03| 61.2% / 38.8%   | Moderate influence, balanced weighting |
-| Casual    | 0.02     | 0.61 / 0.4 = 1.01| 60.5% / 39.5%   | Limited influence, slightly more content-based |
-| New       | 0.001    | 0.60 / 0.4 = 1.00| 60.0% / 40.0%   | Minimal influence, strongest content-based weight |
+| User Type | PageRank | Raw Weights (C/T) | Normalized (C/T) | Explanation                                           |
+| --------- | -------- | ----------------- | ---------------- | ----------------------------------------------------- |
+| Power     | 0.15     | 0.69 / 0.4 = 1.09 | 63.3% / 36.7%    | High influence, heavily weighted toward collaborative |
+| Average   | 0.05     | 0.63 / 0.4 = 1.03 | 61.2% / 38.8%    | Moderate influence, balanced weighting                |
+| Casual    | 0.02     | 0.61 / 0.4 = 1.01 | 60.5% / 39.5%    | Limited influence, slightly more content-based        |
+| New       | 0.001    | 0.60 / 0.4 = 1.00 | 60.0% / 40.0%    | Minimal influence, strongest content-based weight     |
 
 ### Implementation Components
 
@@ -886,6 +913,7 @@ This creates the weight distribution:
    - Damping factor set to 0.85 (standard value)
 
 2. **Iteration Process**
+
    ```cpp
    for each iteration:
        for each user u:
@@ -907,6 +935,7 @@ This creates the weight distribution:
 ### Optimization Techniques
 
 1. **Edge Weight Caching**
+
    ```cpp
    struct EdgeWeight {
        int shared_movies;
@@ -922,6 +951,7 @@ This creates the weight distribution:
    - Particularly effective for sparse user-movie matrices
 
 3. **Early Stopping**
+
    ```cpp
    if (max_diff < epsilon) {
        iterations_until_convergence = iter;
@@ -934,11 +964,11 @@ This creates the weight distribution:
 PageRank scores are interpreted as user influence levels:
 
 | Score Range | User Category | Influence Level |
-|-------------|---------------|-----------------|
-| > 0.1       | Power User    | Very High      |
-| 0.05 - 0.1  | Active User   | High           |
-| 0.01 - 0.05 | Regular User  | Medium         |
-| < 0.01      | New/Casual    | Low            |
+| ----------- | ------------- | --------------- |
+| > 0.1       | Power User    | Very High       |
+| 0.05 - 0.1  | Active User   | High            |
+| 0.01 - 0.05 | Regular User  | Medium          |
+| < 0.01      | New/Casual    | Low             |
 
 ### Impact on Recommendations
 
@@ -946,8 +976,13 @@ PageRank scores are interpreted as user influence levels:
    - Higher PageRank users' ratings carry more weight
    - Influences collaborative filtering component
    - Affects hybrid weight calculation
+   - Most importantly, pagerank excels at identifying users who are:
+     - highly selective, rather than broad
+     - highly influential (often selects popular interests)
+     - highly active (ratings have validity)
 
 2. **Weight Adjustment**
+
    ```cpp
    collaborative_weight = base_weight * (1 + pagerank_score)
    ```
@@ -977,7 +1012,7 @@ PageRank scores are interpreted as user influence levels:
 
 For a small network with 3 users:
 
-```
+```cpp
 User1: rated movies [1,2,3,4]
 User2: rated movies [1,2,3]
 User3: rated movies [3,4]
@@ -996,7 +1031,7 @@ After convergence:
 PageRank ≈ [0.42, 0.31, 0.27]
 ```
 
-This detailed implementation ensures that:
+This ensures that:
 1. User influence is accurately captured
 2. Recommendations benefit from network effects
 3. The system remains computationally efficient
@@ -1126,6 +1161,7 @@ class Utils
 #### Implementation Details
 
 1. **Jaccard Similarity**:
+
 ```cpp
 float jaccardSimilarity(const set<string>& set1, 
                        const set<string>& set2) {
@@ -1148,7 +1184,8 @@ float jaccardSimilarity(const set<string>& set1,
 }
 ```
 
-2. **Cosine Similarity**:
+1. **Cosine Similarity**:
+
 ```cpp
 float cosineSimilarity(const vector<float>& v1,
                       const vector<float>& v2) {
@@ -1168,7 +1205,8 @@ float cosineSimilarity(const vector<float>& v1,
 }
 ```
 
-3. **Value Normalization**:
+1. **Value Normalization**:
+
 ```cpp
 float normalizeValue(float value, float min, float max) {
     if (max == min) return 0.5f;  // Handle edge case
@@ -1179,6 +1217,7 @@ float normalizeValue(float value, float min, float max) {
 #### Usage Examples
 
 1. **Genre Similarity**:
+
 ```cpp
 // Compare movie genres
 auto genres1 = {"Action", "Adventure", "Sci-Fi"};
@@ -1187,7 +1226,8 @@ float similarity = Utils::jaccardSimilarity(genres1, genres2);
 // similarity = 0.667 (2 matching out of 3 total unique)
 ```
 
-2. **Rating Pattern Similarity**:
+1. **Rating Pattern Similarity**:
+
 ```cpp
 // Compare user rating patterns
 vector<float> user1_ratings = {4.5, 3.0, 5.0, 2.5};
@@ -1198,7 +1238,8 @@ float similarity = Utils::cosineSimilarity(
 // similarity = 0.989 (very similar rating patterns)
 ```
 
-3. **Attribute Normalization**:
+1. **Attribute Normalization**:
+
 ```cpp
 // Normalize movie length
 float length = 165;  // minutes
@@ -1206,7 +1247,7 @@ float normalized = Utils::normalizeValue(length, 60, 240);
 // normalized = 0.583 (scaled to [0,1] range)
 ```
 
-This utility class ensures:
+The utility class ensures:
 - Consistent similarity calculations across the system
 - Efficient reuse of common mathematical operations
 - Proper handling of edge cases and normalization
@@ -1453,6 +1494,7 @@ Hybrid:
    diff = max(|newRanks[i] - ranks[i]|) for i in 1..N
    if diff < ε: break
    ```
+
    - Time per check: O(N)
    - Total convergence checks: O(k × N)
 
@@ -1530,11 +1572,10 @@ Memory Usage:
 - Ranks: O(N) ≈ 80 KB (8 bytes per user)
 ```
 
-This analysis shows that:
+This analysis shows:
 1. Preprocessing dominates the runtime
 2. Memory usage scales linearly with edges
 3. Iteration count has minimal impact
-4. System remains efficient for large datasets
 
 ### Content-Based Component Analysis
 
@@ -1548,6 +1589,7 @@ This analysis shows that:
 #### Data Structure Creation and Initialization
 
 1. **Similarity Cache Setup**:
+
    ```cpp
    similarityCache: HashMap<uint64, float>  // O(1) lookup
    cacheAccessCount: HashMap<uint64, int>   // For LRU tracking
@@ -1556,6 +1598,7 @@ This analysis shows that:
    - Initialization Time: O(1)
 
 2. **Genre Index Creation**:
+
    ```cpp
    // For each movie's genres
    for each movie in M:
@@ -1568,6 +1611,7 @@ This analysis shows that:
 #### Core Operations
 
 1. **Movie Similarity Calculation**:
+
    ```cpp
    float calculateSimilarity(movie1, movie2):
        // Genre similarity (Jaccard)
@@ -1587,6 +1631,7 @@ This analysis shows that:
    - Space per entry: O(1)
 
 2. **Similarity Precomputation**:
+
    ```cpp
    void preComputeSimilarities():
        for each movie1 in M:
@@ -1600,6 +1645,7 @@ This analysis shows that:
    - Space: O(C) limited by cache size
 
 3. **Recommendation Generation**:
+
    ```cpp
    vector<pair<int,float>> getRecommendations(userId):
        // Get user's genre preferences
@@ -1655,6 +1701,7 @@ This analysis shows that:
 #### Data Structure Creation
 
 1. **User Rating Matrix**:
+
    ```cpp
    // Sparse matrix representation
    unordered_map<int, unordered_map<int, float>> userRatings;
@@ -1663,6 +1710,7 @@ This analysis shows that:
    - Construction: O(N × R)
 
 2. **Similarity Cache**:
+
    ```cpp
    struct CacheEntry {
        float similarity;
@@ -1676,6 +1724,7 @@ This analysis shows that:
 #### Core Operations
 
 1. **User Similarity Calculation**:
+
    ```cpp
    float calculateSimilarity(user1, user2):
        // Create rating vectors
@@ -1693,6 +1742,7 @@ This analysis shows that:
    - Space: O(R)
 
 2. **Neighbor Selection**:
+
    ```cpp
    vector<User> findNeighbors(userId):
        similarities = []
@@ -1708,6 +1758,7 @@ This analysis shows that:
    - Space: O(N)
 
 3. **Score Prediction**:
+
    ```cpp
    float predictScore(userId, movieId):
        neighbors = findNeighbors(userId)  // O(N log N)
@@ -1750,6 +1801,7 @@ This analysis shows that:
 #### Core Operations
 
 1. **Weight Calculation**:
+
    ```cpp
    pair<float,float> calculateWeights(pagerank):
        collabWeight = α × (1 + pagerank)
@@ -1761,6 +1813,7 @@ This analysis shows that:
    - Space: O(1)
 
 2. **Score Combination**:
+
    ```cpp
    vector<Recommendation> combineScores(contentRecs, collabRecs):
        weights = calculateWeights(userPageRank)  // O(1)
@@ -1786,6 +1839,7 @@ This analysis shows that:
 #### Overall System Complexity
 
 1. **Time Complexity**:
+
    ```
    Preprocessing = max(
        O(M² × G),    // Content similarities
@@ -1802,6 +1856,7 @@ This analysis shows that:
    ```
 
 2. **Space Complexity**:
+
    ```
    Total = Content + Collaborative + PageRank
         = O(M × G) + O(N × R) + O(E)
@@ -1821,7 +1876,7 @@ This complete analysis shows that:
 
 ## Performance Visualizations
 
-```
+```text
 Rough Percentage of Total Runtime
 |
 |  90% +----------------+
