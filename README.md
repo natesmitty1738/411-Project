@@ -1391,7 +1391,7 @@ Hybrid:
 - `E`: Number of edges in the user similarity graph
 - `M`: Average number of movies rated per user
 - `k`: Number of iterations until convergence
-- `d`: Damping factor (constant, 0.85)
+- `d`: Damping factor (0.85)
 - `ε`: Convergence threshold (constant, 0.0001)
 
 #### Data Structure Creation and Initialization
@@ -1821,15 +1821,13 @@ This complete analysis shows that:
 
 ## Performance Visualizations
 
-### 1. Time Complexity Growth
-
 ```
-Percentage of Total Runtime
+Rough Percentage of Total Runtime
 |
-|  90% +-----------------+
-|      |                 |
-|  75% |                 |
-|      |                 |    65%
+|  90% +----------------+
+|      |                |
+|  75% |                |
+|      |                |    65%
 |  60% |     Pre-       |    +----+
 |      |  computation   |    |    |
 |  45% |                |    |    |    40%
@@ -1838,9 +1836,32 @@ Percentage of Total Runtime
 |      |                |    |    |    |    |    +----+
 |  15% |                |    |    |    |    |    |    |
 |      |                |    |    |    |    |    |    |
-|   0% +-----------------+----+----+----+----+----+----+
-       Similarity Calc   PageRank  Collab   Content
+|   0% +----------------+----+----+----+----+----+----+
+       Similarity Calc       PageRank  Collab    Content
 ```
+
+## Feedback
+
+Reviewers:
+
+- Jasper Eerkens
+- Bryce Emery
+- Stevie Littleton
+
+Feedback:
+
+- Use normalization between similarity calculations
+- Consider using a Bipartite Graph for User/Items storage
+- Add caching
+- Use Page Rank rating as a reference key for new users to be temporarily matched with recommendations that are popular until their own preferences are generated
+
+1. I had a lot of issues trying to build this program out without normalizing my output values from similarity calculations. This change made it possible to accurately connect each separate part of the program.
+
+2. I ended up using a bipartite graph since it helped me envision the overarching data structure better. Things get really confusing when there's edges everywhere on a connected graph. Moreover, this improved my runtime significantly. Maybe I lost some functionality because I scrapped my Betweenness Centrality idea, but I could probably implement that on the bipartite graph as well. 
+
+3. I added caching, because there was no other way. Runtimes are awful when you're combining so much different data. I was going to do this anyway for O(1) lookups, but this feedback helped get the ball rolling.
+
+4. I want to use Page Rank in the future to attempt to drastically reduce runtime and make my recommendations more probabilistic. More so, this sparked an idea to use bloom filters as well, this would hopefully reduce space complexity and possibly time complexity. I did not implement this because it would make unit testing virtually impossible.
 
 ## Citations
 
