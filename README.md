@@ -11,8 +11,6 @@ make && ./run_tests
 
 ## Table of Contents
 
-# Table of Contents
-
 1. [Test Cases](#test-cases)
 2. [Introduction](#introduction)
 3. [Implementation](#implementation)
