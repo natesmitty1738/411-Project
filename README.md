@@ -11,14 +11,16 @@ make && ./run_tests
 
 ## Table of Contents
 
+# Table of Contents
+
 1. [Test Cases](#test-cases)
 2. [Introduction](#introduction)
 3. [Implementation](#implementation)
-   - [BipartiteGraph: The Foundation](#bipartitegraph-the-foundation)
-   - [Content-Based Filtering](#content-based-filtering-personalized-genre-based-recommendations)
-   - [Collaborative Filtering](#collaborative-filtering-user-based-with-pagerank-integration)
-   - [Utils: Core Similarity Metrics](#utils-core-similarity-metrics)
-   - [Hybrid: Final Recommendation Generation](#hybrid-final-recommendation-generation)
+   - [1. BipartiteGraph: The Foundation](#1-bipartitegraph-the-foundation)
+   - [2. Content-Based Filtering](#2-content-based-filtering-personalized-genre-based-recommendations)
+   - [3. Collaborative Filtering](#3-collaborative-filtering-user-based-with-pagerank-integration)
+   - [4. Utils: Core Similarity Metrics](#4-utils-core-similarity-metrics)
+   - [5. Hybrid: Final Recommendation Generation](#5-hybrid-final-recommendation-generation)
 4. [Run Time Analysis](#run-time-analysis)
    - [PageRank Component Analysis](#pagerank-component-analysis)
    - [Content-Based Component Analysis](#content-based-component-analysis)
@@ -84,7 +86,7 @@ The modern era of recommendation systems began in the 1990s at the MIT Media Lab
 Let's get started:
 My project implements a movie recommendation service using C++. It combines hybrid filtering with a modified PageRank algorithm to create, effective, efficient, personalized recommendations. Considering my use of multiple algorithms, I will focus on PageRank as my chosen algorithm since it's the most integral.
 
-## Implementaion
+## Implementation
 
 My hybrid approach combines three metrics:
 
